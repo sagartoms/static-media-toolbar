@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        function sendToJciCustomApp(eventType) {
+            var jciCustomAppRef = document.getElementById('accVbIframe');
+            jciCustomAppRef.postMessage(eventType, "*");
+        } 
+    </script>
     <title>Document</title>
 </head>
 <body>
+    <button onclick="sendToJciCustomApp('enableAgent')">Make agent available</button> <br/> <br/>
+    <button onclick="sendToJciCustomApp('newComm')">Show incoming call notification</button> <br/> <br/>
+    <button onclick="sendToJciCustomApp('startComm')">Accept Incoming Call</button> <br/> <br/>
+    <button onclick="sendToJciCustomApp('closeComm')">End Call</button> <br/> <br/>
+
     TEST MESSAGE FROM IFRAME
     <iframe id="accVbIframe" src="https://fa-xbef-pintlabfadev.fa.ocs.oc-test.com/fscmUI/redwood/accentureapp" width-"10" height="10"></iframe>
+    <div id="logs">
+    </div>
 </body>
 </html>

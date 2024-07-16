@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript">
+        var eventId = '';
         function sendToJciCustomApp(eventType) {
+            if (eventType === "newComm") {
+              eventId = Date.now().toString();
+                phoneNumber = '12312312';
+            }
             var jciCustomAppRef = document.getElementById('accVbIframe');
-            jciCustomAppRef.contentWindow.postMessage({eventType}, "*");
+            jciCustomAppRef.contentWindow.postMessage({eventType, eventId, phoneNumber}, "*");
         } 
         window.addEventListener("message", (event) => {
             if (event.data?.eventType === "addLogs") {

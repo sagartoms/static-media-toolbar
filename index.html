@@ -12,7 +12,7 @@
                 phoneNumber = '12312312';
             }
             var jciCustomAppRef = document.getElementById('accVbIframe');
-            jciCustomAppRef.contentWindow.postMessage({eventType, eventId, phoneNumber}, "*");
+            jciCustomAppRef.contentWindow.postMessage({eventType, eventId, phoneNumber, direction: 'NiceToFusionApp'}, "*");
         } 
         window.addEventListener("message", (event) => {
             if (event.data?.eventType === "addLogs") {

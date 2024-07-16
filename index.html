@@ -8,6 +8,12 @@
             var jciCustomAppRef = document.getElementById('accVbIframe');
             jciCustomAppRef.postMessage(eventType, "*");
         } 
+        window.addEventListener("message", (event) => {
+            if (event.data?.eventType === "addLogs") {
+                var currentLog = document.getElementById('logs').innerHTML;
+                document.getElementById('logs').innerHTML = currentLog + event.data?.logMessage + '<br/>';
+            }
+        });
     </script>
     <title>Document</title>
 </head>

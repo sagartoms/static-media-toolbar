@@ -6,7 +6,7 @@
     <script type="text/javascript">
         function sendToJciCustomApp(eventType) {
             var jciCustomAppRef = document.getElementById('accVbIframe');
-            jciCustomAppRef.postMessage(eventType, "*");
+            jciCustomAppRef.contentWindow.postMessage(eventType, "*");
         } 
         window.addEventListener("message", (event) => {
             if (event.data?.eventType === "addLogs") {

@@ -28,7 +28,7 @@
               } else if (event.data.eventType === 'incomingCallNotif') {
                 logMessage = 'Incoming call notification shown in fusion..';
               } else if (event.data.eventType === 'initiateOutgoing') {
-                logMessage = 'Incoming call from customer care.';
+                logMessage = 'Outbound call initiated from fusion to ' + event.data?.response?.outData?.SVCMCA_ANI;
               } 
                if (logMessage) {
                 var currentLog = document.getElementById('logs').innerHTML;

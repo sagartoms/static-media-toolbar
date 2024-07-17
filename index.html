@@ -15,11 +15,8 @@
             jciCustomAppRef.contentWindow.postMessage({eventType, eventId, phoneNumber, direction: 'NiceToFusionApp'}, "*");
         } 
         window.addEventListener("message", (event) => {
-            // if (event.data?.eventType === "addLogs") {
-            //     var currentLog = document.getElementById('logs').innerHTML;
-            //     document.getElementById('logs').innerHTML = currentLog + event.data?.logMessage + '<br/>';
-            // }
-                var logMessage = '';
+            if (event.data?.direction === "FusionAppToNice") {
+              var logMessage = '';
               if (event.data.eventType === 'callAccepted') {
                 logMessage = 'Call accepted in fusion';
               } else if (event.data.eventType === 'callDisconnected') {
@@ -35,8 +32,9 @@
               } 
                if (logMessage) {
                 var currentLog = document.getElementById('logs').innerHTML;
-                document.getElementById('logs').innerHTML = logMessage + '<br/>';
+                document.getElementById('logs').innerHTML = currentLog + logMessage + '<br/>';
               }
+            }
         });
     </script>
     <title>Document</title>
@@ -46,6 +44,7 @@
     <button onclick="sendToJciCustomApp('newComm')">Show incoming call notification</button> <br/> <br/>
     <button onclick="sendToJciCustomApp('startComm')">Accept Incoming Call</button> <br/> <br/>
     <button onclick="sendToJciCustomApp('closeComm')">End Call</button> <br/> <br/>
+    <button onclick="sendToJciCustomApp('outboundCallAcceptedByCustomer')">Accept outbound call from fusion</button> <br/> <br/>
 
 <!--     <iframe id="accVbIframe" src="https://fa-xbef-pintlabfadev.fa.ocs.oc-test.com/fscmUI/redwood/accentureapp" width-"10" height="10"></iframe> -->
     <iframe id="accVbIframe" src="https://fa-xbef-pintlabfadev.fa.ocs.oc-test.com/fscmUI/redwood/jcicustomapp?vbdt%3ApreferExtensionVersion=%24vb_dc95c835ade0b4b110f6fefb42172eab" width-"10" height="10"></iframe>

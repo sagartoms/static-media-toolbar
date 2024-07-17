@@ -15,10 +15,28 @@
             jciCustomAppRef.contentWindow.postMessage({eventType, eventId, phoneNumber, direction: 'NiceToFusionApp'}, "*");
         } 
         window.addEventListener("message", (event) => {
-            if (event.data?.eventType === "addLogs") {
+            // if (event.data?.eventType === "addLogs") {
+            //     var currentLog = document.getElementById('logs').innerHTML;
+            //     document.getElementById('logs').innerHTML = currentLog + event.data?.logMessage + '<br/>';
+            // }
+                var logMessage = '';
+              if (event.data.eventType === 'callAccepted') {
+                logMessage = 'Call accepted in fusion';
+              } else if (event.data.eventType === 'callDisconnected') {
+                logMessage = 'Call disconnected in fusion';
+              } else if (event.data.eventType === 'callRejected') {
+                logMessage = 'Call rejected in fusion';
+              } else if (event.data.eventType === 'enableAgent') {
+                logMessage = 'Agent is ready to make or accept calls';
+              } else if (event.data.eventType === 'incomingCallNotif') {
+                logMessage = 'Incoming call notification shown in fusion..';
+              } else if (event.data.eventType === 'initiateOutgoing') {
+                logMessage = 'Incoming call from customer care.';
+              } 
+               if (logMessage) {
                 var currentLog = document.getElementById('logs').innerHTML;
                 document.getElementById('logs').innerHTML = currentLog + event.data?.logMessage + '<br/>';
-            }
+              }
         });
     </script>
     <title>Document</title>

@@ -6,6 +6,41 @@
     <script type="text/javascript">
         var eventId = '';
         var phoneNumber = '';
+
+        function preparePayload(eventStatus) {
+            switch (eventStatus) {
+                case 'Incoming':
+                    eventId = Date.now().toString();
+                    break;
+            }
+            return {
+                "EventId": eventId,
+                "Issuer": "MAX",
+                "Type": "CallContactEvent",
+                "ContactID": "1569815",
+                "Status": eventStatus,
+                "OriginalState": "False",
+                "CallType": "Regular",
+                "DNIS": "4000010001",
+                "ANI": "12312312",
+                "Skill": "1507",
+                "IsInbound": "True",
+                "StartTimeUTC": "2013-09-11T05:03:24.000Z",
+                "LastStateChangeTimeUTC": "2013-09-11T05:03:24.000Z",
+                "ScreenPopUrl": "",
+                "DisconnectCode": "NA",
+                "IsLogging": "False",
+                "Timeout": "",
+                "AllowDispositions": "True",
+                "Label": "",
+                "IsLinked": "False",
+                "TimeZones": "",
+                "FinalState": "False",
+                "OtherInformation": "",
+                "BlendingToSkillName": ""
+            }
+        }
+
         function sendToJciCustomApp(eventType) {
             if (eventType === "newComm") {
               eventId = Date.now().toString();
@@ -14,6 +49,11 @@
             var jciCustomAppRef = document.getElementById('accVbIframe');
             jciCustomAppRef.contentWindow.postMessage({eventType, eventId, phoneNumber, direction: 'NiceToFusionApp'}, "*");
         } 
+        
+        // function sendToJciCustomApp(eventType) {
+        //     var jciCustomAppRef = document.getElementById('accVbIframe');
+        //     jciCustomAppRef.contentWindow.postMessage(preparePayload(eventStatus), "*");
+        // } 
         window.addEventListener("message", (event) => {
             if (event.data?.direction === "FusionAppToNice") {
               var logMessage = '';
@@ -41,13 +81,13 @@
 </head>
 <body>
     <button onclick="sendToJciCustomApp('enableAgent')">Make agent available</button> <br/> <br/>
-    <button onclick="sendToJciCustomApp('newComm')">Show incoming call notification</button> <br/> <br/>
+    <button onclick="sendToJciCustomApp('Incoming')">Show incoming call notification</button> <br/> <br/>
     <button onclick="sendToJciCustomApp('startComm')">Accept Incoming Call</button> <br/> <br/>
     <button onclick="sendToJciCustomApp('closeComm')">End Call</button> <br/> <br/>
     <button onclick="sendToJciCustomApp('outboundCallAcceptedByCustomer')">Accept outbound call from fusion</button> <br/> <br/>
 
 <!--     <iframe id="accVbIframe" src="https://fa-xbef-pintlabfadev.fa.ocs.oc-test.com/fscmUI/redwood/accentureapp" width-"10" height="10"></iframe> -->
-    <iframe id="accVbIframe" src="https://fa-xbef-pintlabfadev.fa.ocs.oc-test.com/fscmUI/redwood/jcicustomapp" width="400" height="400"></iframe>
+    <iframe id="accVbIframe" src="https://fa-xbef-pintlabfadev.fa.ocs.oc-test.com/fscmUI/redwood/jcicustomapp?vbdt%3ApreferExtensionVersion=%24vb_dc95c835ade0b4b110f6fefb42172eab" width="400" height="400"></iframe>
     <div id="logs">
     </div>
 </body>
